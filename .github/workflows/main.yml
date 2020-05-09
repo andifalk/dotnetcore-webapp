@@ -40,10 +40,10 @@ jobs:
           dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp' 
       
       # - uses: actions/checkout@master
-      - name: trufflehog-actions-scan
-        uses: edplato/trufflehog-actions-scan@master
-        with:
-          scanArguments: "--regex --entropy=False --max_depth=5 --rules /regexes.json" # Add custom options here*
+      # - name: trufflehog-actions-scan
+      #  uses: edplato/trufflehog-actions-scan@master
+      #  with:
+      #    scanArguments: "--regex --entropy=False --max_depth=5 --rules /regexes.json" # Add custom options here*
       
       # SCA
       # - name: Snyk
@@ -59,4 +59,9 @@ jobs:
           publish-profile: ${{ secrets.publish_profile  }} # Define secret variable in repository settings as per action documentation
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
 
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.3.0
+        with:
+          target: 'https://andreaswebapp.azurewebsites.net/'
+        
 # For more samples to get started with GitHub Action workflows to deploy to Azure, refer to https://github.com/Azure/actions-workflow-samples
