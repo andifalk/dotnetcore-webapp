@@ -59,6 +59,7 @@ jobs:
           publish-profile: ${{ secrets.publish_profile  }} # Define secret variable in repository settings as per action documentation
           package: '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp'
 
+      # ZAP 
       - name: ZAP Scan
         uses: zaproxy/action-baseline@v0.3.0
         with:
